@@ -130,7 +130,7 @@
               // console.log(checkStatus.data[0])
               $.ajax({
                 type: "GET",
-                url: "http://localhost:8080/jmarket/deleteCartOrderBy?id=" + checkStatus.data[0].id,
+                url: "http://localhost:8080/jmarket/deleteCartOrderById?id=" + checkStatus.data[0].id,
                 async: false,
                 timeout: 3000,
                 success: function success(xmlhttp) {
@@ -188,7 +188,7 @@
 
           $.ajax({
             type: "GET",
-            url: "http://localhost:8080/jmarket/deleteCartOrderBy?id=" + data.id,
+            url: "http://localhost:8080/jmarket/deleteCartOrderById?id=" + data.id,
             async: false,
             timeout: 3000,
             success: function success(xmlhttp) {
