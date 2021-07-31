@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.CommodityMapper">
+
+    <!-- 发布商品 -->
+    <insert id="addCommodity">
+        INSERT INTO `commodity` (commname,commtype,orimoney,thinkmoney,common,commcount,commdesc,commdigit,commaddress,businessid,commtel,businessname,image) VALUES (#{commname},#{commtype},#{orimoney},#{thinkmoney},#{common},#{commcount},#{commdesc},#{commdigit},#{commaddress},#{businessid},#{commtel},#{businessname},#{image})
+    </insert>
+
+    <!-- 根据id查询商品 -->
+    <select id="findCommodityById" resultType="com.ssm.entity.Commodity">
+        SELECT * FROM `commodity` where commid = #{commid}
+    </select>
+
+    <!-- 根据id查询商家 -->
+    <select id="findMemberById" resultType="com.ssm.entity.Member">
+        SELECT * FROM `member` where id = #{businessid}
+    </select>
+
+    <!-- 根据id查询已发布商品列表 -->
+    <select id="findCommodityListByBusinessid" resultType="com.ssm.entity.Commodity">
+        SELECT * FROM `commodity` where businessid = #{businessid}
+    </select>
+
+    <!-- 获取商品列表（前九条） -->
+    <select id="findCommodityList" resultType="com.ssm.entity.Commodity">
+        SELECT * FROM `commodity` LIMIT 0,9;
+    </select>
+
+    <!-- 获取商品列表（第十到第十八条） -->
+    <select id="findCommodityList2" resultType="com.ssm.entity.Commodity">
+        SELECT * FROM `commodity` LIMIT 9,18;
+    </select>
+
+    <!-- 更新商品 -->
+    <update id="updateCommodity">
+        UPDATE commodity SET commname=#{commname},commtype=#{commtype},orimoney=#{orimoney},thinkmoney=#{thinkmoney},common=#{common},commcount=#{commcount},commdesc=#{commdesc},commdigit=#{commdigit},image=#{image} WHERE commid=#{commid};
+    </update>
+
+    <!-- 通过商品类别查找商品列表 -->
+    <select id="findCommodityListByCommtype" resultType="com.ssm.entity.Commodity">
+        SELECT * FROM `commodity` where commtype = #{commtype}
+    </select>
+
+    <!-- 通过商品id删除商品 -->
+    <delete id="deleteCommodityById">
+        DELETE FROM `commodity` WHERE commid = #{commid}
+    </delete>
+
+    <!-- 通过SearchText查找商品列表 -->
+    <select id="findCommodityListBySearchText" resultType="com.ssm.entity.Commodity">
+        SELECT * FROM `commodity` where commname like CONCAT('%',#{searchText},'%')
+    </select>
+
+</mapper>

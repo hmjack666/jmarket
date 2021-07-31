@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>个人信息</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+  <style>
+    .w {
+      width: 450px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
+    <legend>个人信息</legend>
+  </fieldset>
+
+  <form class="layui-form" id="goodsform" style="margin-top: 10px">
+
+    <div class="layui-form-item w" style="display: none;">
+      <label class="layui-form-label">userid</label>
+      <div class="layui-input-block">
+        <input type="text" id="userid" name="userid" autocomplete="off" class="layui-input" value="8">
+      </div>
+    </div>
+
+    <div class="layui-form-item w">
+      <label class="layui-form-label" id="ifBusiness">用户名</label>
+      <div class="layui-input-block">
+        <input type="text" id="username" name="username" lay-verify="required" autocomplete="off" placeholder="请输入用户名"
+          class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item layui-form-text w">
+      <label class="layui-form-label">登录密码</label>
+      <div class="layui-input-block">
+        <input type="password" id="password" name="password" autocomplete="off" placeholder="请输入登录密码"
+          class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item layui-form-text w">
+      <label class="layui-form-label">确认密码</label>
+      <div class="layui-input-block">
+        <input type="password" id="password2" name="password2" autocomplete="off" placeholder="请在此输入登录密码"
+          class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item layui-form-text w">
+      <label class="layui-form-label" id="addressName">收货地址</label>
+      <div class="layui-input-block">
+        <input type="text" id="address" name="address" lay-verify="required" autocomplete="off" placeholder="收货地址"
+          class="layui-input">
+      </div>
+    </div>
+
+    <div class="layui-form-item w">
+      <label class="layui-form-label">电话号码</label>
+      <div class="layui-input-block">
+        <input type="text" id="tel" name="tel" lay-verify="required" autocomplete="off" placeholder="请输入电话号码"
+          class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item layui-form-text w">
+      <label class="layui-form-label">邮箱</label>
+      <div class="layui-input-block">
+        <input type="text" id="email" name="email" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item layui-form-text w">
+      <label class="layui-form-label" id="businessName">姓名</label>
+      <div class="layui-input-block">
+        <input type="text" id="name" name="name" lay-verify="required" autocomplete="off" placeholder="请输入姓名"
+          class="layui-input">
+      </div>
+    </div>
+
+    <!-- <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button type="buttom" class="layui-btn" lay-submit="" id="demo1" lay-filter="demo1">提交修改</button>
+      </div>
+    </div> -->
+  </form>
+
+  <script src="./jquery/jquery.js"></script>
+  <script src="./layui/layui.js" charset="utf-8"></script>
+
+  <script>
+
+    // alert(window.location.href)
+
+    function GetQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = decodeURI(window.location.search.substr(1)).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
+    }
+
+    var userid;
+    var sname = GetQueryString("userid");
+    if (sname != null) {
+      // var sname_ = decodeURIComponent(sname);
+      userid = decodeURIComponent(sname);
+      // alert(sname_);
+    }
+
+    // console.log("个人信息页：" + userid)
+  </script>
+
+  <script>
+    $.ajax({
+      type: "get",
+      dataType: "json",
+      url: "http://localhost:8080/jmarket/findMemberById?userid=" + userid,
+      async: false,
+      timeout: 3000,
+      success: function success(xmlhttp) {
+
+        // console.log(xmlhttp)
+
+        if (xmlhttp.type == 1) {
+          $("#ifBusiness").text("店铺名称")
+          $("#addressName").text("店铺地址")
+          $("#businessName").text("开店人")
+        }
+
+        $("#userid").val(xmlhttp.userid)
+        $("#address").val(xmlhttp.address)
+        $("#name").val(xmlhttp.name)
+        $("#tel").val(xmlhttp.tel)
+        $("#username").val(xmlhttp.username)
+        $("#email").val(xmlhttp.email)
+      },
+      error: function (xmlhttp) {
+        alert(xmlhttp.status);
+      }
+    });
+  </script>
+
+</body>
+
+</html>
