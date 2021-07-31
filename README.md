@@ -1,4 +1,7 @@
+jmarket商城项目已发布博客于CSDN上，博客中涵盖了更多内容，若需要了解得更多，可以访问博客链接: [基于SSM的商城项目（jmarket商城）](https://blog.csdn.net/m0_46991388/article/details/119281310)。
+
 #### 一、项目概述
+
 项目名：jmarket（即买客）商城
 开发环境：
 ① win10；
